@@ -3,6 +3,7 @@ let bodyParser = require('body-parser');
 let router = require('./router');
 let User = require('./class/user');
 let Harvester = require('./class/harvester');
+let Resource = require('./class/resource');
 
 // On crée l'application
 let app = express();
@@ -24,10 +25,10 @@ app.listen(port, () => {
 });
 
 var d = new Harvester('tata',1);
-d.nextAction();
+let r = Resource.getInstence();
+r.takeArtisanalResource(50);
+console.log(r.artisanalResources);
+
+    console.log(d.nextAction());
 
 
-/*
-
-
-*/

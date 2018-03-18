@@ -1,7 +1,11 @@
 class Resource {
-    constructor(nom, id) {
-      this.nom = nom;
-      this.id = id;
+    constructor() {
+      this.artisanalResources = 500;
+      
+    }
+
+    takeArtisanalResource(i){
+      this.artisanalResources = this.artisanalResources -i;
     }
 
     static getInstence(){

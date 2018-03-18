@@ -6,12 +6,13 @@ class User {
     this.rent = 20;
     this.inventory = [];
     this.work = null;
-    this.action = [0,0];
+    // id : duration : result
+    this.action = [0,0,0];
     this.emergency = false;
   }
 
   nextAction() {
-    number: cpoumr = this.canPayOrUpgradeMyRent();
+    let cpoumr = this.canPayOrUpgradeMyRent();
     if (cpoumr == 0){
       this.emergency = true;
     }else {
@@ -33,6 +34,10 @@ class User {
         this.rent;
       }
     } 
+  }
+
+   getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
   }
 }
 module.exports = User;
