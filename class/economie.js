@@ -3,7 +3,7 @@ let Action = require('./action');
 let Entree = require('./entree');
 let Resource = require('./resource');
 let Sortie = require('./sortie');
-let Work = require('./work');
+let harvester = require('./harvester');
 
 class Economie {
     constructor(name) {
@@ -19,23 +19,21 @@ class Economie {
         var i =0;
         while(i < 25){
             this.list.push(generateUser("recolteur"));
-            this.list.push(generateUser("artisan"));
+            //this.list.push(generateUser("artisan"));
             i++
         }
       }
 
       generateUser(name) {
-       u = new User(name+""+this.idUser,this.idUser);
-       this.idUser++;
+      
+       
        if (name == "recolteur"){
-           u.work = recolte;
+        return new harvester(name+""+this.idUser,this.idUser);
        }else {
-           u.work = artisan;
+          // u.work = artisan;
        }
 
-
-
-        return u;
+       this.idUser++;
       }
   }
   module.exports = Economie;

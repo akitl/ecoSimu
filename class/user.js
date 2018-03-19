@@ -6,17 +6,19 @@ class User {
     this.rent = 20;
     this.inventory = [];
     this.work = null;
-    // id : duration : result
-    this.action = [0,0,0];
+    this.actionId = 0;
+    this.actionDuration = 0;
+    this.actionResult = 0;
+    this.actionTraitement = 0;
     this.emergency = false;
   }
 
   nextAction() {
     let cpoumr = this.canPayOrUpgradeMyRent();
-    if (cpoumr == 0){
+    if (cpoumr <= 0){
       this.emergency = true;
     }else {
-      if ( this.action[0] == 0 && cpoumr == this.rent*10){
+      if ( this.actionId == 0 && cpoumr == this.rent*10){
         this.rent = cpoumr
         return 1;
       }
@@ -26,7 +28,7 @@ class User {
 
   canPayOrUpgradeMyRent(){
     if( this.balance < this.rent){
-      return 0;
+      return this.balance - this.rent;
     }else{
       if((this.balance*30)/100 == this.rent*10){
         return this.rent * 10
