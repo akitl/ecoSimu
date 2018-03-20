@@ -1,4 +1,7 @@
-let db = require('./db').init();
+
+let View = require('../class/View');
+
+let v = View.getInstence();
 
 exports.User = () => {
   name;
@@ -6,15 +9,10 @@ exports.User = () => {
 }
 
 exports.getAllUsers = () => {
-  return db.find({
-    selector: {type: "User"},
-    fields: ['_id', 'name']
-  });
+  return v.userTest;
+ 
 }
 
 exports.getUser = (name) => {
-  return db.find({
-    selector: {type: "User", name: name},
-    limit: 1
-  });
+ 
 }

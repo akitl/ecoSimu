@@ -4,7 +4,7 @@ let router = require('./router');
 let User = require('./class/user');
 let Harvester = require('./class/harvester');
 let Resource = require('./class/resource');
-
+let View = require('./class/view');
 // On crée l'application
 let app = express();
 
@@ -23,9 +23,12 @@ let port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log("Server listening on port " + port);
 });
+let r = Resource.getInstence();
+let v = View.getInstence();
 
 var d = new Harvester('tata',1);
-let r = Resource.getInstence();
+v.userTest = d;
+
 r.takeArtisanalResource(50);
 console.log(r.artisanalResources);
 
