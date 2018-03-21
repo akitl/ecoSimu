@@ -1,15 +1,11 @@
 let user_model = require('../models/user');
+let Resource = require('../class/resource');
 
 // GET /users
 exports.list = (req, res) => {
   // Les resultats ne sont trouvés qu'au moment ou le Promise renvoie sa callback de succes, attention a ne pas attendre les résultats en dehors du promise
 
-  user_model.getAllUsers().then((result) => {
-    res.render('pages/users/list', { users: result.docs });
-  })
-  .catch((err) => {
-    res.render('pages/users/list', { users: false });
-  });
+    res.json(user_model.getAllUsers());
 }
 
 // GET /users/:name

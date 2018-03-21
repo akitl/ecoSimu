@@ -27,7 +27,8 @@ let r = Resource.getInstence();
 let v = View.getInstence();
 
 var d = new Harvester('tata',1);
-v.userTest = d;
+v.addHarvester(d);
+// v.userTest = d;
 
 r.takeArtisanalResource(50);
 console.log(r.artisanalResources);

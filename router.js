@@ -10,9 +10,8 @@ exports.init = (app) => {
 
     // Users
 
-    app.get('/users', (req, res) => {
-        users_controller.list(req, res);
-    });
+    app.get('/users', users_controller.list);
+    
 
     app.get('/users/:name', (req, res) => {
         users_controller.index(req, res);
