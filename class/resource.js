@@ -1,11 +1,29 @@
 class Resource {
     constructor() {
-      this.artisanalResources = 500;
+      this.artisanalResources = 100000;
+      this.ARresilianceDuration =20;
+      this.ARresilianceValue = 500;
+      this.ARactualTick = 0; 
       
     }
 
     takeArtisanalResource(i){
+      //console.log("take R");
       this.artisanalResources = this.artisanalResources -i;
+    }
+
+    updateTick(){
+      
+      this.ARresiliance();
+    }
+
+    ARresiliance(){
+      this.ARactualTick++;
+      if (this.ARactualTick == this.ARresilianceDuration){
+        this.artisanalResources = this.artisanalResources + this.ARresilianceValue;
+        this.ARactualTick =0;
+      }
+
     }
 
     static getInstence(){

@@ -5,9 +5,10 @@ class Harvester extends User {
   nextAction() {
     super.nextAction();
     let iSwitch = this.actionId;
-    let r = Resource.getInstence();
     switch (iSwitch) {
       case 0: // standby
+     // console.log("standby");
+      
         if (!this.emergency) {
           this.actionId = 1;
           this.actionDuration = 5;
@@ -18,14 +19,26 @@ class Harvester extends User {
         return 0;
         break;
       case 1:// search
+      //console.log("search id:"+this.actionId+" | duration: "+this.actionDuration+" | Result: "+this.actionResult+" | Traitement: "+this.actionTraitement);
+
+
         if (!this.emergency) {
           if (this.actionDuration > 0) {
             this.actionDuration = this.actionDuration - 1;
             return 0;
           } else if (this.actionDuration == 0) {
             this.actionResult = this.getRandomArbitrary(1, 5);
-            this.actionId = 2;
-            return 0;
+            if(Resource.instance.artisanalResources < this.actionResult){
+              this.actionResult = Resource.instance.artisanalResources;
+            }
+            if(this.actionResult == 0){
+              this.actionDuration = 5;
+              return 0;
+            }else{
+              this.actionId = 2;
+              return 0;
+            }
+
           }
         } else {
           if (this.actionDuration > 0) {
@@ -43,6 +56,8 @@ class Harvester extends User {
         return 0;
         break;
       case 2:// harvesting
+      //console.log("harvesting id:"+this.actionId+" | duration: "+this.actionDuration+" | Result: "+this.actionResult+" | Traitement: "+this.actionTraitement);
+
         if (!this.emergency) {
           if (this.actionResult > 0) {
             this.actionDuration = this.actionResult * 2;
@@ -53,14 +68,15 @@ class Harvester extends User {
             this.actionDuration = this.actionDuration - 1;
             return 0;
           } else if (this.actionDuration == 0) {
-            this.inventory[0] = 0;
             this.inventory[1] = this.inventory[1] + this.actionTraitement;
-            r.artisanalResources - this.actionTraitement;
+            Resource.instance.takeArtisanalResource(this.actionTraitement);
             this.actionTraitement = 0;
             if (this.inventory[1] >= 20) {
-              this.actionTraitement
+              this.actionId = 3;
+              this.actionDuration = 5;
               return 1;
             } else {
+              this.actionId = 0;
               return 0;
             }
           }
@@ -80,18 +96,17 @@ class Harvester extends User {
             }
             if (this.actionDuration - this.actionTraitement == 0) {
               this.inventory[1] = this.inventory[1] + (this.actionTraitement - 1);
-              r.artisanalResources - (this.actionTraitement-1);
-              this.actionDuration = 0; this.actionResult = 0; this.actionTraitement = 0;
+              Resource.instance.takeArtisanalResource(this.actionTraitement);              this.actionDuration = 0; this.actionResult = 0; this.actionTraitement = 0;
               return 1;
             }
           } else if (this.actionDuration < 2) {
             if (this.actionTraitement > 1) {
               this.inventory[1] = this.inventory[1] + (this.actionTraitement - 1);
-              r.artisanalResources - (this.actionTraitement-1);
+              Resource.instance.takeArtisanalResource(this.actionTraitement); 
               return 1;
             } else if(this.actionDuration == 1) {
               this.inventory[1] = this.inventory[1] + this.actionTraitement;
-              r.artisanalResources - this.actionTraitement;
+              Resource.instance.takeArtisanalResource(this.actionTraitement);
               return 1;
             }
           }
@@ -99,9 +114,18 @@ class Harvester extends User {
         return 0;
         break;
       case 3:// sell
+     // console.log("sell");
+
         if (!this.emergency) {
-          this.actionId = 1;
-          this.actionDuration = 5;
+          if (this.actionDuration == 0){
+            this.balance = this.balance + this.inventory[1]*5;
+            this.inventory[1] = 0;
+            this.actionId = 0;
+            return 0;
+          }else{
+            this.actionDuration = this.actionDuration -1;
+            return 0;
+          }
         } else {
           this.actionId = 4;
           this.actionDuration = 2;
@@ -109,6 +133,8 @@ class Harvester extends User {
         return 0;
         break;
       case 4:// search emergency
+      console.log("search emergency");
+
         if (!this.emergency) {
           this.actionId = 1;
           this.actionDuration = 5;
@@ -119,6 +145,8 @@ class Harvester extends User {
         return 0;
         break;
       case 5:// harvesting emergency
+      console.log("harvesting emergency");
+
         if (!this.emergency) {
           this.actionId = 1;
           this.actionDuration = 5;
@@ -129,6 +157,8 @@ class Harvester extends User {
         return 0;
         break;
       case 6:// sell emergency
+      console.log("sell emergency");
+
         if (!this.emergency) {
           this.actionId = 1;
           this.actionDuration = 5;
@@ -140,6 +170,7 @@ class Harvester extends User {
         break;
 
       default:
+      console.log("default");
         break;
     }
 

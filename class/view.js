@@ -7,19 +7,50 @@ let Harvester = require('./harvester');
 
 class View {
     constructor() {
-      this.userTest = null;
+      this.usersH = [];
+      this.usersA = [];
+      this.users = [];
+      this.artisanalResources = 0 ;
+      this.totalBalance = 0;
+      this.totalBalanceTick = 0;
+      this.tick =0 ;
+      this.higestRent = 0;
+      this.lowestRent = 0;
+      
     }
 
     addHarvester(h){
-      console.log("Salut");
-      console.log(this);
-      this.userTest = h;
+      this.usersH.push(h);
+    }
+
+    updateTick(t){
+      this.tick = t;
+    }
+    
+    updateArtisanalResource(ar){
+      this.artisanalResources = ar;
+    }
+
+    updateBalances(tbt){
+      this.totalBalanceTick = tbt;
+      this.totalBalance =  tbt;
+    }
+
+    updateRent(lr,hr){
+      this.higestRent = hr;
+      this.lowestRent =  lr;
+    }
+
+    getHarvesters(){
+     return this.usersH;
     }
 
     static getInstence(){
       if(!View.instance){
+        console.log("Re instencisation")
         View.instance = new View();
       }
+      console.log("instancié ")
       return View.instance;
     }
   }

@@ -1,6 +1,7 @@
 
 let View = require('../class/View');
 
+
 exports.User = () => {
   name;
   age;
@@ -9,9 +10,10 @@ exports.User = () => {
 exports.getAllUsers = () => {
   let v = View.getInstence();
 
-  console.log(v);
 
-  return v.userTest;
+  
+
+  return v.getHarvesters();
  
 }
 

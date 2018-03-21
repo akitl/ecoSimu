@@ -4,7 +4,7 @@ class User {
     this.id = id;
     this.balance = 200;
     this.rent = 20;
-    this.inventory = [];
+    this.inventory = [0,0];
     this.work = null;
     this.actionId = 0;
     this.actionDuration = 0;
@@ -39,7 +39,7 @@ class User {
   }
 
    getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
+    return Math.floor(Math.random() * (max - min) + min);
   }
 }
 module.exports = User;

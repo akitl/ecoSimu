@@ -3,7 +3,7 @@ module.exports = function(app) {
   var users = require('../controllers/users');
 
   // todoList Routes
-  app.route('/tasks')
+  app.route('/user')
     .get(users.list_all_tasks);
     //.post(todoList.create_a_task);
 
