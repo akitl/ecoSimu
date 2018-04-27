@@ -13,10 +13,12 @@ class View {
       this.artisanalResources = 0 ;
       this.totalBalance = 0;
       this.totalBalanceTick = 0;
-      this.tick =0 ;
+      this.higestBalence = 0;
+      this.lowestBalence = 0;
       this.higestRent = 0;
       this.lowestRent = 0;
-      
+
+      this.tick =0 ;
     }
 
     addHarvester(h){
@@ -31,15 +33,18 @@ class View {
       this.artisanalResources = ar;
     }
 
-    updateBalances(tbt){
+    updateBalances(tbt,hb,lb){
       this.totalBalanceTick = tbt;
       this.totalBalance =  tbt;
+      this.higestBalence = hb;
+      this.lowestBalence = lb;
     }
 
     updateRent(lr,hr){
       this.higestRent = hr;
       this.lowestRent =  lr;
     }
+    
 
     getHarvesters(){
      return this.usersH;

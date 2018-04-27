@@ -1,9 +1,11 @@
+var configEco = require('../configEco');
+
 class User {
   constructor(nom, id) {
     this.nom = nom;
     this.id = id;
-    this.balance = 200;
-    this.rent = 20;
+    this.balance = configEco.BaseBalance;
+    this.rent =configEco.BaseRent;
     this.inventory = [0,0];
     this.work = null;
     this.actionId = 0;
@@ -28,9 +30,11 @@ class User {
 
   canPayOrUpgradeMyRent(){
     if( this.balance < this.rent){
+      console.log("urg");
       return this.balance - this.rent;
     }else{
       if((this.balance*30)/100 == this.rent*10){
+        console.log("upgrade");
         return this.rent * 10
       }else{
         this.rent;

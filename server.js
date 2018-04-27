@@ -28,4 +28,4 @@ let r = Resource.getInstence();
 
 let e = new Economie();
 e.test(); 
-setInterval(function() { e.start(); }, 10);
+setInterval(function() { e.start(); }, 100);

@@ -39,6 +39,8 @@ class Economie {
         let totalBalanceTick =0;
         let lr = this.list[0].rent;
         let hr = this.list[0].rent;
+        let lb = this.list[0].balance;
+        let hb = this.list[0].balance;
        for (let index = 0; index < this.list.length; index++) {
            const element = this.list[index];
            if ( this.tickRentCount == this.tickRent){
@@ -50,11 +52,14 @@ class Economie {
            if (element.rent > hr){
                hr = element.rent;
            }
+           if (element.balance > hb){
+            hb = element.balance;
+           }           
            
        }
        Resource.instance.updateTick();
        View.instance.updateArtisanalResource(Resource.instance.artisanalResources);
-       View.instance.updateBalances(totalBalanceTick);
+       View.instance.updateBalances(totalBalanceTick,hb,lb);
        View.instance.updateTick(this.tick);
        View.instance.updateRent(lr,hr);
 
